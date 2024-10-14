@@ -25,21 +25,23 @@ export default function FormComboBox({ items = [], placeholder }: FormComboBoxPr
 
     return (
         <Field className={`text-sm/6 font-semibold flex flex-col`}>
-            <Label>Favorite Club</Label>
+            <Label className={`text-sm/6 font-medium text-black`}>Favorite Club</Label>
             <Combobox value={selectedItem} onChange={setSelectedItem} onClose={() => setQuery('')}>
-                <ComboboxInput
-                    className={`px-2 h-[38px] w-[408px] border rounded-[9px] shadow-md`}
-                    placeholder={placeholder}
-                    displayValue={(item: ClubDetails) => item?.name}
-                    onChange={(event) => setQuery(event.target.value)}
-                />
-                <ComboboxOptions anchor="bottom" className="border bg-white empty:invisible w-[408px]">
-                    {filteredItems.map((item: ClubDetails) => (
-                        <ComboboxOption key={item.id} value={item} className="data-[focus]:bg-blue-100">
-                            {item.name}
-                        </ComboboxOption>
-                    ))}
-                </ComboboxOptions>
+                <div className={`relative`}>
+                    <ComboboxInput
+                        className={`px-2 h-[38px] w-[408px] border rounded-[9px] shadow-md`}
+                        placeholder={placeholder}
+                        displayValue={(item: ClubDetails) => item?.name}
+                        onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <ComboboxOptions anchor="bottom" className="box-border bg-white empty:invisible w-[408px]">
+                        {filteredItems.map((item: ClubDetails) => (
+                            <ComboboxOption key={item.id} value={item} className="data-[focus]:bg-blue-100">
+                                {item.name}
+                            </ComboboxOption>
+                        ))}
+                    </ComboboxOptions>
+                </div>
             </Combobox>
         </Field>
     );

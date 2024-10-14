@@ -2,13 +2,12 @@
 
 import React, { useState } from 'react';
 import FormInput from '@/components/FormInput';
-import { Fieldset, Legend } from '@headlessui/react';
+import { Fieldset, Label, Legend } from '@headlessui/react';
 import FormTextArea from '@/components/FormTextArea';
 import FormComboBox from '@/components/FormComboBox';
-import FormDialog from '@/components/FormDialog';
 
 export default function Home() {
-    const [formData, setFormDate] = useState({
+    const initialValues = {
         name: '',
         email: '',
         gender: '',
@@ -16,7 +15,9 @@ export default function Home() {
         agreeToTerms: false,
         password: '',
         description: '',
-    });
+    };
+
+    const [formData, setFormDate] = useState(initialValues);
 
     const clubs = [
         { id: 1, name: 'Real Madrid', country: 'Spain' },
@@ -45,6 +46,7 @@ export default function Home() {
         e.preventDefault();
 
         console.log('Registration Successful', formData);
+        setFormDate(initialValues);
     };
 
     return (
@@ -54,6 +56,7 @@ export default function Home() {
                     <form onSubmit={handleSubmit}>
                         <Fieldset className={`p-2 border border-cyan-800 rounded-2xl flex flex-col items-center justify-center`}>
                             <Legend className="text-xl underline font-semibold">Personal Details</Legend>
+
                             <FormInput
                                 label={'Full Name'}
                                 inputType={'text'}
@@ -63,6 +66,7 @@ export default function Home() {
                                 placeholder={'sergio ramos'}
                                 onChange={handleInputChange}
                             />
+
                             <FormInput
                                 label={'Email Address'}
                                 inputType={'email'}
@@ -72,15 +76,26 @@ export default function Home() {
                                 placeholder={'sergio@gmail.com'}
                                 onChange={handleInputChange}
                             />
-                            <FormInput
-                                label={'Phone Number'}
-                                inputType={'number'}
-                                id={'number'}
-                                name={'number'}
-                                value={formData.phone}
-                                placeholder={'0773498780'}
-                                onChange={handleInputChange}
-                            />
+
+                            <div className={`flex flex-col w-[410px]`}>
+                                <Label htmlFor="phone" className={`text-sm/6 font-medium text-black`}>
+                                    Phone Number
+                                </Label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    pattern="^0?7*[0-9]\d{7}$"
+                                    maxLength={10}
+                                    title={'Please enter a number starting 076'}
+                                    required
+                                    placeholder={'0774839380'}
+                                    onChange={handleInputChange}
+                                    className={'mt-1 block rounded-lg border py-1.5 px-3 text-sm/6 text-black shadow-md '}
+                                />
+                            </div>
+
                             <FormInput
                                 label={'Password'}
                                 inputType={'password'}
@@ -96,7 +111,9 @@ export default function Home() {
                             </div>
 
                             <div className={`p-4 text-sm/6 font-semibold flex flex-col mr-[305px]`}>
-                                <label htmlFor="gender">Select Gender</label>
+                                <label htmlFor="gender" className={`text-sm/6 font-medium text-black`}>
+                                    Select Gender
+                                </label>
                                 <label>
                                     <input
                                         type="radio"
@@ -116,10 +133,12 @@ export default function Home() {
                                         value="female"
                                         checked={formData.gender === 'female'}
                                         onChange={handleInputChange}
+                                        className={`text-sm/6 font-medium text-black`}
                                     />{' '}
                                     Female
                                 </label>
                             </div>
+
                             <FormTextArea
                                 name={'description'}
                                 value={formData.description}
@@ -128,7 +147,8 @@ export default function Home() {
                                 label={'Add your Extra Activities'}
                                 placeholder={'Ex: Sport Activities'}
                             />
-                            <label htmlFor="agreeToTerms" className={`p-6 text-sm/6 font-semibold`}>
+
+                            <label htmlFor="agreeToTerms" className={`p-6 text-sm/6 font-medium text-black`}>
                                 <input
                                     type="checkbox"
                                     id={'agreeToTerms'}
@@ -139,14 +159,12 @@ export default function Home() {
                                 />{' '}
                                 Agree Terms & Conditions
                             </label>
-                            {/*<button*/}
-                            {/*    className={`bg-teal-900 rounded-xl px-9 py-3 text-white hover:bg-teal-700*/}
-                            {/*`}*/}
-                            {/*    type={'submit'}*/}
-                            {/*>*/}
-                            {/*    Submit*/}
-                            {/*</button>*/}
-                            <FormDialog onClose={handleSubmit} />
+                            <input
+                                type="submit"
+                                value={'Submit'}
+                                className={`bg-teal-900 rounded-xl px-9 py-3 text-white hover:bg-teal-700 hover:cursor-pointer
+                            `}
+                            />
                         </Fieldset>
                     </form>
                 </div>

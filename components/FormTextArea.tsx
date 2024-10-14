@@ -15,7 +15,7 @@ export default function FormTextArea({ label, name, value, onChange, id, placeho
     return (
         <div className="w-full max-w-md px-4">
             <Field>
-                <Label htmlFor={id} className="text-sm/6 font-semibold">
+                <Label htmlFor={id} className="text-sm/6 font-medium text-black">
                     {label}
                 </Label>
                 <Textarea
